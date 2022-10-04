@@ -33,9 +33,9 @@ int main(void){
       PORTD &= 0b11011111;
     }
     else{
-      _delay_ms(300); 
+      _delay_ms(600); 
       PORTD |= 0b00100000;  
-      _delay_ms(300);
+      _delay_ms(600);
       PORTD &= 0b11011111;
     }
 

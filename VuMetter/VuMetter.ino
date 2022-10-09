@@ -19,7 +19,7 @@ ISR(ADC_vect){
 int main(void){
   Serial.begin(9600); // open the serial port at 9600 bps:
 
-  DDRB |= 0b00011111; // Set output in PB
+  DDRB |= 0b00111111; // Set output in PB
   DDRD |= 0b11111100; // Set output in PD
     
   /*Configure the A/D converter in A0*/
@@ -76,10 +76,10 @@ int main(void){
   }
     else if(counter_timer<=255){
     PORTD |= 0b11111100;
-    PORTB |= 0b00011111;
+    PORTB |= 0b00111111;
   }
     PORTD &= 0b00000011;
-    PORTB &= 0b11100000;
+    PORTB &= 0b11000000;
   }
 
 }

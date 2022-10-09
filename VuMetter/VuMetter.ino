@@ -5,12 +5,13 @@ Description - Vu Metter, using ADC and Port D and B*/
 #include <util/delay.h> 
 #include <avr/interrupt.h>
 
-uint16_t  counter_timer = 0x0000;
+uint8_t  counter_timer = 0x00;
 
 ISR(ADC_vect){
 
   counter_timer = ADCH; //one with 0xffff other with 0xff
-  counter_timer = counter_timer<<8;
+  //counter_timer = counter_timer<<8;
+  ADCSRA |= 0b01000000;
 }
 
 
@@ -30,10 +31,55 @@ int main(void){
   /*Enable the interruptions*/
   sei();
   SREG |= 0b10000000; /*Which interruption will be used, timer1 and counter*/
-  PORTD |=
-  PORTB |= 
+
   while(1){
-  
+    Serial.print(counter_timer);
+    Serial.print("\n");
+
+    if(counter_timer<21){
+    PORTD |= 0b00000100;
+  }
+    else if(counter_timer<2*21){
+    PORTD |= 0b00001100;
+  }
+    else if(counter_timer<3*21){
+    PORTD |= 0b00011100;
+  }
+    else if(counter_timer<4*21){
+    PORTD |= 0b00111100;
+  }
+    else if(counter_timer<5*21){
+    PORTD |= 0b01111100;
+  }
+    else if(counter_timer<6*21){
+    PORTD |= 0b11111100;
+  }
+    else if(counter_timer<7*21){
+    PORTD |= 0b11111100;
+    PORTB |= 0b00000001;
+  }
+    else if(counter_timer<8*21){
+    PORTD |= 0b11111100;
+    PORTB |= 0b00000011;
+  }
+    else if(counter_timer<9*21){
+    PORTD |= 0b11111100;
+    PORTB |= 0b00000111;
+  }
+    else if(counter_timer<10*21){
+    PORTD |= 0b11111100;
+    PORTB |= 0b00001111;
+  }
+    else if(counter_timer<11*21){
+    PORTD |= 0b11111100;
+    PORTB |= 0b00011111;
+  }
+    else if(counter_timer<=255){
+    PORTD |= 0b11111100;
+    PORTB |= 0b00011111;
+  }
+    PORTD &= 0b00000011;
+    PORTB &= 0b11100000;
   }
 
 }

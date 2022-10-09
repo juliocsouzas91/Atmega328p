@@ -39,7 +39,10 @@ int main(void){
   ADCSRA |= 0b11101100;//Register to controll the interruption and clock division of the ADC
 
 
-  
+  PRR |= 0b00100000; //Shut Down Timer 0
+  PRR &= 0b110100000; //Shut Down Timer 0
+
+  PRR |= 0b00010000; //Shut Down Timer 1
   /*Enable the interruptions*/
 
   TIMSK1 |= (1 << TOIE1);  
